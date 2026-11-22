@@ -140,10 +140,8 @@ async def transcribe_detailed(
         # ledger vocabulary (Telugu / Kannada / Tamil included).
         price_terms = json.loads(gnani_keyterms_json(200))
         seen = set(KEYTERMS)
-        keyterms = json.dumps(
-            KEYTERMS + [term for term in price_terms if term not in seen],
-            ensure_ascii=False,
-        )
+        merged = KEYTERMS + [term for term in price_terms if term not in seen]
+        keyterms = json.dumps(merged[:200], ensure_ascii=False)
         topic = gnani_topic()
     except Exception:
         keyterms = json.dumps(KEYTERMS, ensure_ascii=False)
